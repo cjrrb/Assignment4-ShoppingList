@@ -1,0 +1,23 @@
+package reynocor.sheridan.assignment4.data.datasource
+
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.channels.trySendBlocking
+import kotlinx.coroutines.flow.callbackFlow
+import javax.inject.Inject
+
+class AuthRemoteDataSource @Inject constructor(private val auth: FirebaseAuth) {
+    val currentUser: FirebaseUser?
+        get() = auth.currentUser
+
+    val currentUserIdFlow: Flow<String?>
+        get() = callbackFlow {
+            val listener = FirebaseAuth.AuthStateListener { _ -> this.trySend(currentUser?.uid) }
+            auth.addAuthStateListener(listener)
+            awaitClose { auth.removeAuthStateListener(listener) }
+        }
+
+    suspend fun createGuestAccount() {
+        auth.signInAnonymously().await()
+    }
+}

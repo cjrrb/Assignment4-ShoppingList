@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "979755905332",
+    "project_id": "assignment4-shoppinglist-27a1e",
+    "storage_bucket": "assignment4-shoppinglist-27a1e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979755905332:android:3f16144e4fac4f54fef561",
+        "android_client_info": {
+          "package_name": "ca.tetervak.notes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAW6KIMD2JuqMSYTLeH46pNw0-oA1uMnCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979755905332:android:ae4ff8c1e09c9f88fef561",
+        "android_client_info": {
+          "package_name": "reynocor.sheridan.assignment4"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAW6KIMD2JuqMSYTLeH46pNw0-oA1uMnCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
