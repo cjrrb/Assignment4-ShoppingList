@@ -6,5 +6,6 @@ data class ShoppingListItem(
     @DocumentId val id: String = "",
     val title: String = "",
     val quantity: Int = 1,
-    val price: Double = 0.0
+    val price: Double = 0.0,
+    val isChecked: Boolean = false
 )
