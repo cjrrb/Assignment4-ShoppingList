@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Assignment4-ShoppingList</string>
+    <string name="generic_error">Something went wrong</string>
 </resources>
