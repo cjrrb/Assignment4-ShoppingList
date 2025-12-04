@@ -22,13 +22,14 @@ class ShoppingListViewModel @Inject constructor(
 
     private val currentUserIdFlow = MutableStateFlow("")
 
-    val shoppingItems: Flow<List<ShoppingListItem>> =
-        shoppingListItemRepository.getShoppingListItems(currentUserIdFlow)
+    val shoppingItems = shoppingListItemRepository.getShoppingListItems(authRepository.currentUserIdFlow)
 
     fun loadCurrentUser(){
         launchCatching {
-            val uid = authRepository.signedInAnon()
-            currentUserIdFlow.value = uid
+            if (authRepository.currentUser == null){
+                authRepository.createGuestAccount()
+            }
+
             _isLoadingUser.value = false
         }
     }

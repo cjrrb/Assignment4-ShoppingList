@@ -14,7 +14,7 @@ class ShoppingListRemoteDataSource @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val authRepository: AuthRepository
 ) {
-    fun getShoppingLists(userId: String): Flow<List<ShoppingList>> {
+    fun getShoppingLists(): Flow<List<ShoppingList>> {
         val userId = authRepository.currentUserId()
             ?: throw IllegalStateException("User is not logged in")
 

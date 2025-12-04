@@ -1,17 +1,26 @@
 package reynocor.sheridan.assignment4.data.repository
 
-import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.tasks.await
+import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.flow.Flow
+import reynocor.sheridan.assignment4.data.datasource.AuthRemoteDataSource
 import javax.inject.Inject
 
 class AuthRepository @Inject constructor(
-    private val auth: FirebaseAuth
+    private val authRemoteDataSource: AuthRemoteDataSource
 ) {
-    suspend fun signedInAnon(): String {
-        auth.currentUser?.let { return it.uid }
-        val result = auth.signInAnonymously().await()
-        return result.user!!.uid
+    val currentUser: FirebaseUser? get() = authRemoteDataSource.currentUser
+    val currentUserIdFlow: Flow<String?> get() = authRemoteDataSource.currentUserIdFlow
+
+    suspend fun createGuestAccount(){
+        authRemoteDataSource.createGuestAccount()
     }
 
-    fun currentUserId(): String? = auth.currentUser?.uid
+    suspend fun signedInAnon(): String {
+        currentUser?.uid?.let { return it }
+        authRemoteDataSource.createGuestAccount()
+        return authRemoteDataSource.currentUser?.uid
+            ?: throw IllegalStateException("Anon login failed.")
+    }
+
+    fun currentUserId(): String? = currentUser?.uid
 }

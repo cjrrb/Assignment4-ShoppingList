@@ -8,7 +8,7 @@ import javax.inject.Inject
 class ShoppingListItemRepository @Inject constructor(
     private val shoppingListItemRemoteDataSource: ShoppingListItemRemoteDataSource
 ){
-    fun getShoppingListItems(currentUserIdFlow: Flow<String>): Flow<List<ShoppingListItem>> {
+    fun getShoppingListItems(currentUserIdFlow: Flow<String?>): Flow<List<ShoppingListItem>> {
         return shoppingListItemRemoteDataSource.getShoppingListItems(currentUserIdFlow)
     }
 

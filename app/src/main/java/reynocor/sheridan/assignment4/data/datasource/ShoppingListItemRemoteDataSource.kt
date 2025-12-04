@@ -6,20 +6,26 @@ import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.tasks.await
 import reynocor.sheridan.assignment4.data.model.ShoppingListItem
 import javax.inject.Inject
+import kotlin.collections.emptyList
 
 class ShoppingListItemRemoteDataSource @Inject constructor(
     private val firestore: FirebaseFirestore
 ) {
     @OptIn(ExperimentalCoroutinesApi::class)
-    fun getShoppingListItems(currentUserIdFlow: Flow<String>): Flow<List<ShoppingListItem>> {
+    fun getShoppingListItems(currentUserIdFlow: Flow<String?>): Flow<List<ShoppingListItem>> {
         return currentUserIdFlow.flatMapLatest { currentUserId ->
-            firestore
-                .collection("shoppingListItems")
-                .whereEqualTo("userId", currentUserId)
-                .dataObjects<ShoppingListItem>()
+            if (currentUserId.isNullOrBlank()){
+                flowOf(emptyList())
+            } else {
+                firestore
+                    .collection("shoppingListItems")
+                    .whereEqualTo("userId", currentUserId)
+                    .dataObjects<ShoppingListItem>()
+            }
         }
     }
 
