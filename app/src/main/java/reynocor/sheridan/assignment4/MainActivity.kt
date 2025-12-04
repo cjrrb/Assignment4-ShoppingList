@@ -23,6 +23,8 @@ import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import reynocor.sheridan.assignment4.data.model.ErrorMessage
+import reynocor.sheridan.assignment4.ui.item.ShoppingListItemScreen
+import reynocor.sheridan.assignment4.ui.list.ShoppingListScreen
 import reynocor.sheridan.assignment4.ui.theme.Assignment4ShoppingListTheme
 
 private const val ROUTE_LIST = "shoppingList"
@@ -71,7 +73,7 @@ class MainActivity : ComponentActivity() {
                            }
 
                            //Single Item Screen (create and edit)
-                           composable("ROUTE_ITEM/{itemId}"){
+                           composable("ROUTE_ITEM/{itemId}"){ backStackEntry ->
                                val itemId = backStackEntry.arguments?.getString("itemId") ?: ""
 
                                ShoppingListItemScreen(
