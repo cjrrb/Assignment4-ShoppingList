@@ -34,7 +34,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import reynocor.sheridan.assignment4.R
-import reynocor.sheridan.assignment4.data.model.ErrorMessage
 import reynocor.sheridan.assignment4.data.model.ShoppingListItem
 import reynocor.sheridan.assignment4.ui.common.CenterTopAppBar
 import reynocor.sheridan.assignment4.ui.common.LoadingIndicator
@@ -43,7 +42,6 @@ import kotlin.collections.emptyList
 @Composable
 fun ShoppingListScreen(
     openShoppingListItem: (String) -> Unit,
-    showErrorSnackbar: (ErrorMessage) -> Unit,
     viewModel: ShoppingListViewModel = hiltViewModel()
 ) {
     val isLoadingUser by viewModel.isLoadingUser.collectAsState()
@@ -55,8 +53,7 @@ fun ShoppingListScreen(
         ShoppingListScreenContent(
             shoppingItems = shoppingItems,
             openShoppingListItem = openShoppingListItem,
-            updateItem = viewModel::updateItem,
-            deleteItem = viewModel::deleteItem
+            updateItem = viewModel::updateItem
         )
     }
 
@@ -70,8 +67,7 @@ fun ShoppingListScreen(
 fun ShoppingListScreenContent(
     shoppingItems: List<ShoppingListItem>,
     openShoppingListItem: (String) -> Unit,
-    updateItem: (ShoppingListItem) -> Unit,
-    deleteItem: (ShoppingListItem) -> Unit
+    updateItem: (ShoppingListItem) -> Unit
 ){
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -110,7 +106,7 @@ fun ShoppingListScreenContent(
                     ShoppingListRow(
                         item = item,
                         onCheckedChange = { checked ->
-                            updateItem(item.copy(isChecked = checked))
+                            updateItem(item.copy(checked = checked))
                         },
                         onClick = {
                             if (item.id.isNotBlank()) {
@@ -136,7 +132,7 @@ private fun ShoppingListRow(
         verticalAlignment = Alignment.CenterVertically
     ){
         Checkbox(
-            checked = item.isChecked,
+            checked = item.checked,
             onCheckedChange = onCheckedChange,
             colors = CheckboxDefaults.colors(
                 checkedColor = MaterialTheme.colorScheme.primary,

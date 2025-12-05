@@ -1,7 +1,6 @@
 package reynocor.sheridan.assignment4.ui.item
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.navigation.toRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

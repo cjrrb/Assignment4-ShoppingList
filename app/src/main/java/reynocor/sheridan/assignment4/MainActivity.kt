@@ -11,12 +11,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -29,7 +26,6 @@ import reynocor.sheridan.assignment4.ui.theme.Assignment4ShoppingListTheme
 
 private const val ROUTE_LIST = "shoppingList"
 private const val ROUTE_ITEM = "shoppingListItem"
-
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -64,22 +60,18 @@ class MainActivity : ComponentActivity() {
                                        navController.navigate("$ROUTE_ITEM/$itemId") {
                                            launchSingleTop = true
                                        }
-                                   },
-                                   showErrorSnackbar = { errorMessage: ErrorMessage ->
-                                       val message = getErrorMessage(errorMessage)
-                                       scope.launch { snackbarHostState.showSnackbar(message) }
                                    }
                                )
                            }
 
                            //Single Item Screen (create and edit)
-                           composable("ROUTE_ITEM/{itemId}"){ backStackEntry ->
+                           composable("$ROUTE_ITEM/{itemId}"){ backStackEntry ->
                                val itemId = backStackEntry.arguments?.getString("itemId") ?: ""
 
                                ShoppingListItemScreen(
                                    itemId = itemId,
                                    openShoppingListScreen = {
-                                       navController.navigate(ROUTE_LIST) { launchSingleTop = true }
+                                       navController.popBackStack()
                                    },
                                    showErrorSnackbar = { errorMessage: ErrorMessage ->
                                        val message = getErrorMessage(errorMessage)

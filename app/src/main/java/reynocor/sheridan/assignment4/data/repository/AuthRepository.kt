@@ -15,12 +15,5 @@ class AuthRepository @Inject constructor(
         authRemoteDataSource.createGuestAccount()
     }
 
-    suspend fun signedInAnon(): String {
-        currentUser?.uid?.let { return it }
-        authRemoteDataSource.createGuestAccount()
-        return authRemoteDataSource.currentUser?.uid
-            ?: throw IllegalStateException("Anon login failed.")
-    }
-
     fun currentUserId(): String? = currentUser?.uid
 }

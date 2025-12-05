@@ -8,5 +8,5 @@ data class ShoppingListItem(
     val title: String = "",
     val quantity: Int = 1,
     val price: Double = 0.0,
-    val isChecked: Boolean = false
+    val checked: Boolean = false
 )
